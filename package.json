@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-updatenotifier",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Add-on to notify browser that a new frontend has been deployed",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
