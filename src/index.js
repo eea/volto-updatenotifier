@@ -5,9 +5,9 @@ export default function applyConfig(config) {
     const installExpressMiddleware = require('./express-middleware').default;
     config = installExpressMiddleware(config);
   }
-  config.appExtras = [
-    ...config.appExtras,
-    { match: '', component: UpdateNotifier, props: { interval: 60000 } },
+  config.settings.appExtras = [
+    ...config.settings.appExtras,
+    { match: '', component: UpdateNotifier, props: { interval: 600 } },
   ];
   return config;
 }

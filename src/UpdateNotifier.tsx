@@ -1,20 +1,25 @@
 import React from 'react';
 import superagent from 'superagent';
 import { Button } from 'semantic-ui-react';
-import { toPublicURL, toast } from '@plone/volto/helpers';
+import { toast } from 'react-toastify';
+import { defineMessages, useIntl } from 'react-intl';
+import { Toast } from '@plone/volto/components';
+import { toPublicURL } from '@plone/volto/helpers';
 
-const ReloadButton = () => (
-  <div>
-    <p>A new version of the site is available.</p>
-    <Button primary size="small" onClick={() => window.location.reload()}>
-      Reload
-    </Button>
-  </div>
-);
+const messages = defineMessages({
+  updateAvailable: {
+    id: 'A new version of the site is available.',
+    defaultMessage: 'A new version of the site is available.',
+  },
+  reload: {
+    id: 'Reload',
+    defaultMessage: 'Reload',
+  },
+});
 
 export default function UpdateNotifier({ interval = 5000 }) {
+  const intl = useIntl();
   const [version, setVersion] = React.useState<string | null>(null);
-  const toastId = React.useRef<string | number | null>(null);
 
   React.useEffect(() => {
     const url = toPublicURL('/__frontend-version');
@@ -28,10 +33,28 @@ export default function UpdateNotifier({ interval = 5000 }) {
             if (currentVersion === null) {
               return value;
             }
-            if (value !== currentVersion && !toastId.current) {
-              toastId.current = toast.info(<ReloadButton />, {
-                autoClose: false,
-              });
+            if (value !== currentVersion && !toast.isActive('update-notifier')) {
+              toast.info(
+                <Toast
+                  info
+                  title={intl.formatMessage(messages.updateAvailable)}
+                  content={
+                    <Button
+                      primary
+                      size="small"
+                      onClick={() => window.location.reload()}
+                    >
+                      {intl.formatMessage(messages.reload)}
+                    </Button>
+                  }
+                />,
+                {
+                  toastId: 'update-notifier',
+                  autoClose: false,
+                  closeButton: false,
+                  transition: null,
+                },
+              );
             }
             return currentVersion;
           });
@@ -47,7 +70,7 @@ export default function UpdateNotifier({ interval = 5000 }) {
     return () => {
       clearInterval(timer);
     };
-  }, [interval]);
+  }, [interval, intl]);
 
   return null;
 }
