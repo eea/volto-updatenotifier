@@ -447,19 +447,17 @@ module.exports = {
       statements: 5,
     },
   },
-  ...(process.env.JEST_USE_SETUP === 'ON' && {
-    setupFilesAfterEnv: [
-      fs.existsSync(
-        path.join(
-          __dirname,
-          'node_modules',
-          '@eeacms',
-          addonName,
-          'jest.setup.js',
-        ),
-      )
-        ? `<rootDir>/node_modules/@eeacms/${addonName}/jest.setup.js`
-        : `<rootDir>/src/addons/${addonName}/jest.setup.js`,
-    ],
-  }),
+  setupFilesAfterEnv: [
+    fs.existsSync(
+      path.join(
+        __dirname,
+        'node_modules',
+        '@eeacms',
+        addonName,
+        'jest.setup.js',
+      ),
+    )
+      ? `<rootDir>/node_modules/@eeacms/${addonName}/jest.setup.js`
+      : `<rootDir>/src/addons/${addonName}/jest.setup.js`,
+  ],
 };

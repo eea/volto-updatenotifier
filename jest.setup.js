@@ -8,6 +8,12 @@ var mockSemanticComponents = jest.requireActual('semantic-ui-react');
 var mockComponents = jest.requireActual('@plone/volto/components');
 var config = jest.requireActual('@plone/volto/registry').default;
 
+config.settings = {
+  ...config.settings,
+  publicURL: 'http://localhost:3000',
+  apiPath: 'http://localhost:8080/Plone',
+};
+
 config.blocks.blocksConfig = {
   ...blocksConfig,
   ...config.blocks.blocksConfig,
