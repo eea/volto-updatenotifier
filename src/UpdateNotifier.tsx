@@ -54,23 +54,26 @@ export default function UpdateNotifier({ interval = 5000 }) {
                   info
                   title={intl.formatMessage(messages.updateAvailable)}
                   content={
-                    <div>
-                      <p>{intl.formatMessage(messages.reloadRecommended)}</p>
+                    <>
+                      {intl.formatMessage(messages.reloadRecommended)}
                       {token && (
-                        <p>
+                        <>
+                          <br />
                           <strong>
                             {intl.formatMessage(messages.authenticatedWarning)}
                           </strong>
-                        </p>
+                        </>
                       )}
+                      <br />
                       <Button
                         primary
                         size="small"
                         onClick={() => window.location.reload()}
+                        style={{ marginTop: '10px' }}
                       >
                         {intl.formatMessage(messages.reload)}
                       </Button>
-                    </div>
+                    </>
                   }
                 />,
                 {
