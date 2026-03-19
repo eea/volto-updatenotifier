@@ -16,10 +16,7 @@
     "type": "git",
     "url": "git@github.com:eea/volto-updatenotifier.git"
   },
-  "addons": [
-  ],
-  "dependencies": {
-  },
+  "addons": [],
   "devDependencies": {
     "@plone/scripts": "*"
   },
