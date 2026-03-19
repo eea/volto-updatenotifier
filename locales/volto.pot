@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"POT-Creation-Date: 2026-03-19T12:58:21.967Z\n"
+"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8\n"
+"Domain: volto\n"
+
+#. Default: "A new version of the site is available."
+#: UpdateNotifier
+msgid "A new version of the site is available."
+msgstr ""
+
+#. Default: "If you are currently editing a page, please save your changes as soon as possible and then reload the page."
+#: UpdateNotifier
+msgid "If you are currently editing a page, please save your changes as soon as possible and then reload the page."
+msgstr ""
+
+#. Default: "Reload"
+#: UpdateNotifier
+msgid "Reload"
+msgstr ""
+
+#. Default: "We recommend reloading the page to ensure the best experience. Continuing without a reload may lead to unexpected errors."
+#: UpdateNotifier
+msgid "We recommend reloading the page to ensure the best experience. Continuing without a reload may lead to unexpected errors."
+msgstr ""
