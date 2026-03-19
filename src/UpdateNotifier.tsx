@@ -19,7 +19,7 @@ const messages = defineMessages({
 
 export default function UpdateNotifier({ interval = 5000 }) {
   const intl = useIntl();
-  const [version, setVersion] = React.useState<string | null>(null);
+  const [, setVersion] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const url = toPublicURL('/__frontend-version');
@@ -52,7 +52,7 @@ export default function UpdateNotifier({ interval = 5000 }) {
                   toastId: 'update-notifier',
                   autoClose: false,
                   closeButton: false,
-                  transition: null,
+                  // transition: null,
                 },
               );
             }
