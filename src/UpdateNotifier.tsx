@@ -1,0 +1,102 @@
+import React from 'react';
+import superagent from 'superagent';
+import { Button } from 'semantic-ui-react';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { defineMessages, useIntl } from 'react-intl';
+import { Toast } from '@plone/volto/components';
+import { toPublicURL } from '@plone/volto/helpers';
+
+const messages = defineMessages({
+  updateAvailable: {
+    id: 'A new version of the site is available.',
+    defaultMessage: 'A new version of the site is available.',
+  },
+  reloadRecommended: {
+    id: 'We recommend reloading the page to ensure the best experience. Continuing without a reload may lead to unexpected errors.',
+    defaultMessage:
+      'We recommend reloading the page to ensure the best experience. Continuing without a reload may lead to unexpected errors.',
+  },
+  authenticatedWarning: {
+    id: 'If you are currently editing a page, please save your changes as soon as possible and then reload the page.',
+    defaultMessage:
+      'If you are currently editing a page, please save your changes as soon as possible and then reload the page.',
+  },
+  reload: {
+    id: 'Reload',
+    defaultMessage: 'Reload',
+  },
+});
+
+export default function UpdateNotifier({ interval = 5000 }) {
+  const intl = useIntl();
+  const token = useSelector((state: any) => state.userSession?.token);
+  const [version, setVersion] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const url = toPublicURL('/__frontend-version');
+
+    const checkVersion = () => {
+      superagent
+        .get(url)
+        .then((body) => {
+          const value = body.text;
+          setVersion((currentVersion) => {
+            if (currentVersion === null) {
+              return value;
+            }
+            if (
+              value !== currentVersion &&
+              !toast.isActive('update-notifier')
+            ) {
+              toast.info(
+                <Toast
+                  info
+                  title={intl.formatMessage(messages.updateAvailable)}
+                  content={
+                    <div>
+                      <p>{intl.formatMessage(messages.reloadRecommended)}</p>
+                      {token && (
+                        <p>
+                          <strong>
+                            {intl.formatMessage(messages.authenticatedWarning)}
+                          </strong>
+                        </p>
+                      )}
+                      <Button
+                        primary
+                        size="small"
+                        onClick={() => window.location.reload()}
+                      >
+                        {intl.formatMessage(messages.reload)}
+                      </Button>
+                    </div>
+                  }
+                />,
+                {
+                  toastId: 'update-notifier',
+                  autoClose: false,
+                  closeButton: false,
+                  transition: null,
+                },
+              );
+            }
+            return currentVersion;
+          });
+        })
+        .catch(() => {
+          // Ignore errors during version check (e.g. network transient issues)
+        });
+    };
+
+    checkVersion();
+    const timer = setInterval(checkVersion, interval);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [interval, intl, token]);
+
+  return null;
+}
+

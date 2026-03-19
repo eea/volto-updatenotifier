@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-updatenotifier",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Add-on to notify browser that a new frontend has been deployed",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -16,12 +16,18 @@
     "type": "git",
     "url": "git@github.com:eea/volto-updatenotifier.git"
   },
-  "addons": [
-  ],
-  "dependencies": {
-  },
+  "addons": [],
+  "dependencies": {},
   "devDependencies": {
-    "@plone/scripts": "*"
+    "@cypress/code-coverage": "^3.10.0",
+    "@plone/scripts": "*",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "cypress-fail-fast": "^5.0.1",
+    "dotenv": "^16.3.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "md5": "^2.3.0",
+    "cypress": "13.1.0"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
@@ -45,6 +51,7 @@
     ]
   },
   "scripts": {
+    "prepare": "husky install",
     "release": "release-it",
     "release-major-beta": "release-it major --preRelease=beta",
     "release-beta": "release-it --preRelease=beta",
@@ -61,7 +68,6 @@
     "lint:fix": "make lint-fix",
     "i18n": "make i18n",
     "cypress:run": "make cypress-run",
-    "cypress:open": "make cypress-open",
-    "prepare": "husky install"
+    "cypress:open": "make cypress-open"
   }
 }
