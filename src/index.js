@@ -7,7 +7,7 @@ export default function applyConfig(config) {
   }
   config.settings.appExtras = [
     ...config.settings.appExtras,
-    { match: '', component: UpdateNotifier, props: { interval: 10000 } },
+    { match: '', component: UpdateNotifier, props: { interval: 300000 } },
   ];
   return config;
 }
